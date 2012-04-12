@@ -1,10 +1,21 @@
-QJSON_BASE = ..
+isEmpty(QJSON_BASE) {
+  QJSON_BASE = ..
+}
 QJSON_SRCBASE = .
 
 TEMPLATE = lib
 QT      -= gui
 TARGET   = qjson
 DESTDIR  = $$QJSON_BASE/lib
+DLLDESTDIR = $$QJSON_BASE/bin
+build_pass:CONFIG(release, debug|release) {
+  OBJECTS_DIR = release/obj
+  MOC_DIR = release/moc
+} else {
+  TARGET = $$join(TARGET,,,d)
+  OBJECTS_DIR = debug/obj
+  MOC_DIR = debug/moc
+}
 CONFIG += create_prl
 
 VERSION = 0.7.1
@@ -34,6 +45,11 @@ PUBLIC_HEADERS += \
   serializer.h \
   serializerrunnable.h \
   qjson_export.h
+
+;target.path = $$QJSON_BASE/lib
+publicheaders.path = $$QJSON_BASE/include/qjson
+publicheaders.files = $$PUBLIC_HEADERS
+INSTALLS += publicheaders
 
 HEADERS += $$PRIVATE_HEADERS $$PUBLIC_HEADERS
 
