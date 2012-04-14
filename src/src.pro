@@ -8,13 +8,13 @@ QT      -= gui
 TARGET   = qjson
 DESTDIR  = $$QJSON_BASE/lib
 DLLDESTDIR = $$QJSON_BASE/bin
-build_pass:CONFIG(release, debug|release) {
-  OBJECTS_DIR = release/obj
-  MOC_DIR = release/moc
-} else {
+build_pass:CONFIG(debug, debug|release) {
   TARGET = $$join(TARGET,,,d)
   OBJECTS_DIR = debug/obj
   MOC_DIR = debug/moc
+} else {
+  OBJECTS_DIR = release/obj
+  MOC_DIR = release/moc
 }
 CONFIG += create_prl
 
